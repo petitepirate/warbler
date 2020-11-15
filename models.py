@@ -25,7 +25,7 @@ class Follows(db.Model):
         db.ForeignKey('users.id', ondelete="cascade"),
         primary_key=True,
     )
-
+# two foreign keys - to be able to access the users id who follows them, and the users that they follow
 
 class Likes(db.Model):
     """Mapping user likes to warbles."""
