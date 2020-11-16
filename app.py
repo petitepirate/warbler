@@ -237,7 +237,7 @@ def add_like(message_id):
     user_likes = g.user.likes
 
     if liked_message in user_likes:
-        g.user.likes = [like for like in user_likes if like != liked_message]
+        g.user.likes.remove(liked_message)
     else:
         g.user.likes.append(liked_message)
 
@@ -341,19 +341,6 @@ def messages_destroy(message_id):
 
     return redirect(f"/users/{g.user.id}")
 
-# @app.route('/messages/<int:message_id>/like', methods=["POST"])
-# def messages_like(message_id):
-#     """Like a message."""
-
-#     if not g.user:
-#         flash("Access unauthorized.", "danger")
-#         return redirect("/")
-
-#     like = Likes(user_id=g.user.id, message_id=message_id)
-#     db.session.add(like)
-#     db.session.commit()
-
-#     return redirect(f"/")
 
 ##############################################################################
 # Homepage and error pages
