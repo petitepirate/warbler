@@ -257,21 +257,22 @@ def update_profile():
     user = User.query.get(g.user.id)
     form = EditUserForm(obj=user)
 
-    if form.validate_on_submit() and User.authenticate(form.username.data, form.password.data):
-        user.image_url = form.image_url.data
-        user.header_image_url = form.header_image_url.data
-        user.bio = form.bio.data
-        user.location = form.location.data 
-        user.username = form.username.data
-        user.email = form.email.data
+    if form.validate_on_submit():
+        if User.authenticate(form.username.data, form.password.data):
+            user.image_url = form.image_url.data
+            user.header_image_url = form.header_image_url.data
+            user.bio = form.bio.data
+            user.location = form.location.data 
+            user.username = form.username.data
+            user.email = form.email.data
 
-        db.session.add(user)
-        db.session.commit()
+            db.session.add(user)
+            db.session.commit()
 
-        flash("Profile Updated", "success")
-        return redirect(f"/users/{g.user.id}")
+            flash("Profile Updated", "success")
+            return redirect(f"/users/{g.user.id}")
     
-    flash("Password did not match. Please try again.", "danger")
+        flash("Password did not match. Please try again.", "danger")
 
 
     return render_template("/users/edit.html", form=form)
@@ -335,7 +336,11 @@ def messages_destroy(message_id):
         flash("Access unauthorized.", "danger")
         return redirect("/")
 
-    msg = Message.query.get(message_id)
+    msg = Message.query.get_or_404(message_id)
+    if msg.user_id != g.user.id:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
     db.session.delete(msg)
     db.session.commit()
 

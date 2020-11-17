@@ -162,10 +162,10 @@ class MessageViewTestCase(TestCase):
 
             resp = c.post("/messages/1234/delete", follow_redirects=True)
             self.assertEqual(resp.status_code, 200)
-            # self.assertIn("Access unauthorized.", str(resp.data))
+            self.assertIn("Access unauthorized.", str(resp.data))
 
             m = Message.query.get(1234)
-            # self.assertIsNotNone(m)
+            self.assertIsNotNone(m)
 
     def test_message_delete_no_authentication(self):
 

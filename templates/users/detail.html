@@ -58,8 +58,8 @@
 <div class="row">
   <div class="col-sm-3">
     <h4 id="sidebar-username">@{{ user.username }}</h4>
-    <p>{{ user.bio }}</p>  <!-- May add if Logic later-->
-    <p class="user-location"><span class="fa fa-map-marker"></span> {{ user.location }}</p>  <!-- May add if Logic later-->
+    <p>{{ user.bio }}</p>  <!-- May add if Logic later if no bio-->
+    <p class="user-location"><span class="fa fa-map-marker"></span> {{ user.location }}</p>  <!-- May add if Logic later if no location-->
   </div>
 
   {% block user_details %}
