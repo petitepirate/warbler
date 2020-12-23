@@ -33,6 +33,10 @@
                 <a href="/users/{{ g.user.id }}/followers">{{ g.user.followers | length }}</a>
               </h4>
             </li>
+            <li class="stat">
+              <p class="small">Likes</p>
+              <h4><a href="/users/{{ g.user.id }}/likes">{{ g.user.likes | length }}</a></h4>  <!-- Renders users likes-->
+            </li>
           </ul>
         </div>
       </div>
@@ -50,8 +54,8 @@
               <a href="/users/{{ msg.user.id }}">@{{ msg.user.username }}</a>
               <span class="text-muted">{{ msg.timestamp.strftime('%d %B %Y') }}</span>
               <p>{{ msg.text }}</p>
-            </div>
-            <form method="POST" action="/users/add_like/{{ msg.id }}" id="messages-form">
+            </div>     
+            <form method="POST" action="/messages/{{ msg.id }}/like" class="messages-like">
               <button class="
                 btn 
                 btn-sm 
